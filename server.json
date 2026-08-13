@@ -1,0 +1,14 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.blinkcodes/catalog",
+  "title": "BlinkCodes catalog",
+  "description": "Read-only catalog of gift cards, service top-ups and travel eSIMs sold by BlinkCodes.",
+  "version": "0.1.0",
+  "websiteUrl": "https://blinkcodes.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://blinkcodes.com/mcp"
+    }
+  ]
+}
