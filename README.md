@@ -1,5 +1,8 @@
 # BlinkCodes agent interfaces
 
+[![blinkcodes-agent-interfaces MCP server](https://glama.ai/mcp/servers/delneg/blinkcodes-agent-interfaces/badges/card.svg)](https://glama.ai/mcp/servers/delneg/blinkcodes-agent-interfaces)
+[![smithery badge](https://smithery.ai/badge/onlydelneg/blinkcodes)](https://smithery.ai/servers/onlydelneg/blinkcodes)
+
 Machine-readable interfaces for [blinkcodes.com](https://blinkcodes.com) — a store
 selling gift card codes, service top-ups and travel eSIMs, with delivery by email
 in seconds.
