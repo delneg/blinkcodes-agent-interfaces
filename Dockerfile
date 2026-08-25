@@ -12,4 +12,4 @@ ENV MCP_URL=https://blinkcodes.com/mcp
 # Pinned: an unpinned proxy would change wire behaviour on an image rebuild.
 RUN npm install -g mcp-remote@0.1.29
 
-ENTRYPOINT ["sh", "-c", "exec npx -y mcp-remote \"$MCP_URL\""]
+ENTRYPOINT ["sh", "-c", "exec mcp-remote \"$MCP_URL\""]
