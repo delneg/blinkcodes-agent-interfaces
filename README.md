@@ -10,7 +10,7 @@ document those endpoints, pin their schemas, and give working examples.
 
 | Interface | Endpoint | Spec |
 |---|---|---|
-| **MCP** (read-only catalog) | `https://blinkcodes.com/mcp` | Streamable HTTP, protocol `2025-06-18` |
+| **MCP** (catalog + buy) | `https://blinkcodes.com/mcp` | Streamable HTTP, protocol `2025-06-18` |
 | **A2A** | `https://blinkcodes.com/a2a` | JSON-RPC, protocol `0.3` |
 | **x402** (pay per call) | `https://blinkcodes.com/api/v1/buy` | x402 v2 (v1 on request), USDC on Base |
 | OpenAPI | `https://blinkcodes.com/openapi.json` | includes `x-payment-info` (MPP) |
@@ -28,15 +28,19 @@ Discovery documents: [`/.well-known/agent-card.json`](https://blinkcodes.com/.we
 Published to the [Official MCP Registry](https://registry.modelcontextprotocol.io)
 as **`com.blinkcodes/catalog`** ([server.json](./server.json)).
 
-Two tools, both read-only and free — no key, no account, no payment:
+Three tools. The two catalog tools are read-only and free — no key, no account,
+no payment. The third takes money, and only over x402:
 
 | Tool | Purpose |
 |---|---|
 | `search_catalog` | Search gift cards, top-ups and eSIM plans. Returns price, availability and product URL. |
 | `get_product` | One product by id: denominations with prices, required order inputs, countries where the code cannot be redeemed. |
+| `buy_product` | Buy and receive the delivery. Two calls: arguments in → x402 payment requirements out; signed payload in → the code out. |
 
-Buying is deliberately **not** an MCP tool. It happens over the documented HTTP
-flow or the A2A x402 extension, both below.
+`buy_product` runs the same rail as `POST /api/v1/buy` below — verify, reserve,
+settle, fulfil, in that order — so an agent that found the store through MCP
+never has to change protocol to complete the purchase. Nothing is charged by the
+first call, and no wallet is needed to use the other two tools.
 
 Add it to a client that speaks remote MCP:
 
@@ -97,8 +101,8 @@ payable coin pairs: `GET /api/public/payment-methods`.
 ## A2A
 
 Agent card at [`/.well-known/agent-card.json`](https://blinkcodes.com/.well-known/agent-card.json),
-JSON-RPC `message/send` at `https://blinkcodes.com/a2a`. Skills are the two MCP
-tools plus `buy_product`, which carries the
+JSON-RPC `message/send` at `https://blinkcodes.com/a2a`. Skills are the two catalog
+tools plus `buy_product`, which over this transport carries the
 [a2a-x402](https://github.com/google-a2a/a2a-x402) payments extension
 (`https://github.com/google-a2a/a2a-x402/v0.1`, declared `required: false` because
 the catalog skills are free).

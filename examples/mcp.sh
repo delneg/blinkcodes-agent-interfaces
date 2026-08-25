@@ -24,3 +24,9 @@ call '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"search_cat
 
 echo '--- get_product: one product with its denominations ---'
 call '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_product","arguments":{"id":344}}}'
+
+echo '--- buy_product: quote only, nothing is charged ---'
+# Returns x402 payment requirements plus an order_id. Sign the requirements and
+# call buy_product again with {order_id, payment_payload} to settle. See
+# examples/x402-buy.mjs for the signing half — it is the same document.
+call '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"buy_product","arguments":{"email":"you@example.com","product_type":"giftcard","product_id":344,"item_id":1}}}'
