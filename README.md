@@ -53,6 +53,16 @@ Add it to a client that speaks remote MCP:
 
 Full tool schemas and a curl transcript: [docs/mcp.md](docs/mcp.md).
 
+A stdio-only client can use the bridge in [`Dockerfile`](./Dockerfile), which
+proxies to the same hosted endpoint:
+
+```sh
+docker build -t blinkcodes-mcp . && docker run -i --rm blinkcodes-mcp
+```
+
+Prefer the direct URL above wherever your client speaks remote MCP — the bridge
+adds a hop and buys nothing.
+
 ## Buying, for agents
 
 Payment is **USDC on Base** over [x402](https://x402.org). One endpoint, two

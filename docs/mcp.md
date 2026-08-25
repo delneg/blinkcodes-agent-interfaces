@@ -101,6 +101,19 @@ curl -sS https://blinkcodes.com/mcp \
        "params":{"name":"search_catalog","arguments":{"query":"steam","limit":2}}}'
 ```
 
+## Bridge for stdio-only clients
+
+The server is remote. If your client cannot open a remote MCP connection, the
+[`Dockerfile`](../Dockerfile) in this repository builds a stdio proxy to the same
+endpoint:
+
+```sh
+docker build -t blinkcodes-mcp . && docker run -i --rm blinkcodes-mcp
+```
+
+It is a thin `mcp-remote` wrapper — no logic, no state. Use the URL directly
+where you can.
+
 ## Why there is no `buy` tool
 
 Payment belongs on a rail that can carry it. Buying runs over the x402 HTTP flow
